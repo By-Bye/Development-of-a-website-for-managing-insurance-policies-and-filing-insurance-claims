@@ -1,0 +1,174 @@
+/* Style/auth_style.css */
+body.auth-page {
+	background-color: #f4f7f6; /* Светлый фон для страниц авторизации */
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.auth-page .header,
+.auth-page .site-footer {
+	flex-shrink: 0;
+}
+
+.auth-main-content {
+	flex-grow: 1;
+	display: flex;
+	align-items: center; /* Центрирование формы по вертикали */
+	justify-content: center;
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+
+.auth-container {
+	max-width: 500px;
+	width: 100%; /* Для мобильных устройств */
+	margin: 20px; /* Отступы на мобильных */
+	padding: 30px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2 {
+	font-family: 'Piazzolla', serif;
+	color: #333;
+	text-align: center;
+	margin-bottom: 30px;
+	font-size: 28px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: #555;
+	font-family: 'Nunito Sans', sans-serif;
+}
+
+.form-control {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 16px;
+	font-family: 'Nunito Sans', sans-serif;
+}
+
+.form-control:focus {
+	border-color: #f94a77;
+	outline: none;
+	box-shadow: 0 0 0 0.2rem rgba(249, 74, 119, 0.25);
+}
+
+.btn-auth {
+	background-color: #f94a77;
+	color: white;
+	border: none;
+	padding: 12px 20px;
+	font-size: 18px;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%;
+	transition: background-color 0.3s ease;
+	border: 2px solid black; /* Соответствует другим кнопкам */
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: bold;
+}
+
+.btn-auth:hover {
+	background-color: #c82a70;
+	color: white;
+}
+
+.auth-link {
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	color: #f94a77;
+	text-decoration: none;
+	font-family: 'Nunito Sans', sans-serif;
+}
+
+.auth-link:hover {
+	text-decoration: underline;
+}
+
+.message {
+	padding: 10px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	text-align: center;
+	font-family: 'Nunito Sans', sans-serif;
+}
+
+.error-message {
+	background-color: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+
+.success-message {
+	background-color: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+/* ... (существующие стили) ... */
+
+.password-wrapper {
+	position: relative;
+	width: 100%; /* Чтобы иконка была правильно позиционирована относительно инпута */
+}
+
+.password-wrapper .form-control {
+	padding-right: 45px; /* Оставляем место для иконки */
+}
+
+.password-toggle-icon {
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: #6c757d; /* Цвет иконки */
+	z-index: 100; /* Чтобы иконка была поверх тени фокуса инпута */
+}
+
+.password-toggle-icon:hover {
+	color: #333;
+}
+
+/* Стили для модального окна или уведомления на главной */
+.auth-success-alert {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1050; /* Поверх большинства элементов */
+	padding: 15px 25px;
+	background-color: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 16px;
+}
+.auth-success-alert .btn-close-alert {
+	/* Стиль для кнопки закрытия, если будете добавлять */
+	background: none;
+	border: none;
+	font-size: 1.2rem;
+	margin-left: 15px;
+	color: #155724;
+	opacity: 0.7;
+}
+.auth-success-alert .btn-close-alert:hover {
+	opacity: 1;
+}

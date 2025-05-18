@@ -1,0 +1,723 @@
+/* Шрифт 1 */
+.nunito-sans-A {
+	font-family: 'Nunito Sans', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+	font-variation-settings: 'wdth' 100, 'YTLC' 500;
+}
+/* Шрифт 2 */
+.nunito-sans-B {
+	font-family: 'Nunito Sans', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 450;
+	font-style: normal;
+	font-variation-settings: 'wdth' 100, 'YTLC' 500;
+}
+/* Шрифт 3 */
+.piazzolla {
+	font-family: 'Piazzolla', serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+}
+
+/* Стили для HEADER на всю ширину */
+.header {
+	width: 100%; /* Header на всю ширину экрана */
+	padding-left: 70px; /* Убираем стандартные отступы Bootstrap container слева */
+	padding-right: 70px; /* Убираем стандартные отступы Bootstrap container справа */
+	margin-bottom: 10px; /* Отступ снизу от header, если необходимо */
+	margin-top: 15px;
+}
+
+/* Пользовательские стили для акцента */
+
+.navbar-nav {
+	align-items: center;
+}
+.navbar-brand {
+	font-weight: bold;
+	color: #e83e8c !important;
+	font-size: 36px;
+	margin-right: 60px;
+	padding-top: 0px !important;
+}
+
+.nav-item {
+	margin-right: 40px;
+}
+
+.nav-link {
+	color: black !important;
+	font-size: 20px;
+}
+.nav-link:last-child {
+	margin-right: 0; /* Убираем отступ справа у последнего элемента, чтобы не было лишнего интервала после последнего пункта меню */
+}
+.nav-link:hover {
+	color: #e83e8c !important;
+	transform: scale(1.1);
+}
+
+/* Кнопка "CONTACT" */
+.t-btn {
+	background-color: #ffffff;
+	transition: background-color 0.3s, color 0.3s;
+	color: #000;
+	font-size: 20px;
+	height: auto;
+	padding: 10px 40px;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	border: 2px solid black; /* Черная рамка для кнопки - **УЖЕ ЕСТЬ, КАК И ЗАПРАШИВАЛОСЬ** */
+}
+
+.t-btn:hover {
+	cursor: pointer;
+	background-color: #000000;
+	color: #ffffff;
+	box-shadow: none;
+}
+
+.button-icon {
+	margin-right: 20px; /* Интервал между иконкой и текстом кнопки */
+	height: 20px; /*  Задайте высоту иконки, чтобы контролировать размер */
+}
+
+.button-text {
+	line-height: 1; /* Выравнивание текста по вертикали по центру с иконкой */
+}
+
+/* Для наглядности добавим немного отступа снизу от header */
+
+.полоса {
+	width: 100%; /* Полоса на всю ширину */
+	height: 2px; /*  Высота полосы (толщина) - можно изменить */
+	background-color: #000000; /*  Цвет полосы - светло-серый, можно изменить */
+	margin-bottom: 30px; /* Отступ снизу от полосы, если необходимо */
+}
+
+/* 2 блок с картинкой */
+
+/*  Стили для секции контента (две колонки) */
+.content-section {
+	padding: 40px 0;
+	display: flex;
+	align-items: center;
+}
+
+.left-content {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.right-content {
+	text-align: center;
+}
+
+.content-title {
+	font-size: 80px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	line-height: 1.6;
+}
+
+.content-text {
+	font-size: 24px;
+	color: #555;
+	line-height: 1.4;
+	margin-bottom: 30px;
+	max-width: 80%;
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: 450;
+}
+
+.learn-more-btn {
+	background-color: #f94a77;
+	transition: background-color 0.3s, color 0.3s;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	border: none;
+	padding: 25px 90px;
+	font-size: 24px;
+	border-radius: 30px;
+	border: 2px solid black;
+	position: relative; /*  Добавляем position: relative для позиционирования псевдоэлементов */
+	overflow: hidden; /*  Скрываем выходящие за границы анимационные элементы */
+}
+
+.learn-more-btn:hover {
+	cursor: pointer;
+	background-color: #c82a70;
+	color: #ffffff;
+	box-shadow: none;
+}
+
+/* Анимация кругов и полосок при наведении */
+.learn-more-btn::before,
+.learn-more-btn::after {
+	content: '';
+	position: absolute;
+	border-radius: 50%;
+	opacity: 0;
+}
+
+/* Круги */
+.learn-more-btn::before {
+	top: -20px;
+	left: -20px;
+	width: 40px;
+	height: 40px;
+	background-color: rgba(
+		255,
+		255,
+		255,
+		0.5
+	); /* Белый полупрозрачный цвет для кругов */
+	transform: scale(0);
+	transition: transform 0.5s ease-out, opacity 0.5s ease-out; /*  Анимация масштабирования и прозрачности */
+}
+
+.learn-more-btn::after {
+	bottom: -20px;
+	right: -20px;
+	width: 40px;
+	height: 40px;
+	background-color: rgba(
+		255,
+		255,
+		255,
+		0.5
+	); /* Белый полупрозрачный цвет для кругов */
+	transform: scale(0);
+	transition: transform 0.5s ease-out, opacity 0.5s ease-out; /*  Анимация масштабирования и прозрачности */
+}
+
+/* Полоски */
+.learn-more-btn:hover::before,
+.learn-more-btn:hover::after {
+	transform: scale(
+		4
+	); /* Увеличиваем масштаб, чтобы создать эффект расширения */
+	opacity: 1; /*  Делаем видимыми */
+}
+
+.content-image {
+	height: auto;
+	border-radius: 10px;
+	margin-bottom: 15px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 80%;
+	max-width: none;
+}
+
+.image-description {
+	font-size: 18px;
+	color: #777;
+	text-align: center;
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: 450;
+}
+
+/* 3 блок */
+
+.reviews-section {
+	background-color: #000000; /*  Фоновый цвет для секции отзывов - светло-голубой */
+	padding: 60px 0; /*  Отступы сверху и снизу секции */
+	position: relative; /*  Для позиционирования волнистого фона */
+	overflow: hidden; /*  Скрываем волны за пределами секции, если нужно */
+}
+
+/* Волнистый фон */
+.wave-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url('../img/BG Wave (1).png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	pointer-events: none;
+}
+
+/* Волнистый фон сверху */
+.wave-bg {
+	top: 0; /*  Позиционируем верхнюю волну сверху секции */
+}
+
+/* Волнистый фон снизу */
+.wave-bg-bottom {
+	top: auto; /* Отменяем top: 0; из общих стилей */
+	bottom: 0; /*  Позиционируем нижнюю волну снизу секции */
+	transform: scaleY(
+		-1
+	); /* Отражаем волну по вертикали, чтобы создать эффект нижней волны */
+	background-image: url('../img/BG\ Wave\ \(2\).png');
+}
+
+.reviews-container {
+	position: relative; /*  Поднимаем контент над волнами */
+	z-index: 1; /*  Убедитесь, что контент поверх волн */
+	max-width: 1200px; /*  Ограничиваем ширину контента, если нужно */
+	margin: 0 auto; /*  Центрируем контент по горизонтали */
+	padding: 0 15px; /*  Небольшие боковые отступы для контента */
+}
+
+.top-rated {
+	text-align: center; /*  Выравнивание по центру для блока Top Rated */
+	margin-bottom: 40px; /*  Отступ снизу от блока Top Rated */
+}
+
+.top-rated-title {
+	font-size: 70px; /*  Размер заголовка "Top Rated" */
+	margin-top: 200px;
+	margin-bottom: 20px; /*  Отступ снизу от заголовка */
+	font-family: 'Piazzolla', serif;
+	color: white;
+}
+
+.stars {
+	display: flex; /*  Используем flexbox для точного контроля расположения звезд */
+	justify-content: center; /*  Выравнивание звезд по центру по горизонтали */
+	align-items: center; /* Выравнивание звезд по вертикали (если нужно) */
+	overflow: hidden; /*  Скрываем возможные выходящие части звезд */
+}
+
+.stars-bottom {
+	margin-bottom: 100px;
+}
+
+.star-icon {
+	color: #f94a77;
+	font-size: 80px;
+	margin: 0; /* Убираем отступы между звездами */
+	padding: 0 7px;
+	display: block; /*  Убедитесь, что иконка ведет себя как блочный элемент */
+}
+
+/* Стили для карусели отзывов */
+.reviews-carousel {
+	text-align: center;
+	display: flex; /* **Включаем Flexbox для reviews-carousel** */
+	align-items: center; /*  Выравнивание элементов по вертикали по центру */
+	position: relative; /*  Для позиционирования кнопок абсолютно относительно карусели */
+	margin-bottom: 200px;
+}
+
+.carousel-inner {
+	display: flex;
+	overflow-x: hidden; /* Скрываем горизонтальную полосу прокрутки */
+	scroll-snap-type: x mandatory;
+	padding-bottom: 20px;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 30px;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE и Edge */
+}
+
+.carousel-inner::-webkit-scrollbar {
+	display: none;
+}
+
+.review-card {
+	flex: 0 0 auto;
+	width: 512px;
+	height: 286px;
+	padding: 30px;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	margin-right: 20px;
+	scroll-snap-align: start;
+	min-width: auto;
+	text-align: center; /*  **Центрируем текст, имя и звезды в карточке** */
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /*  Вертикальное центрирование содержимого */
+	align-items: center; /* Горизонтальное центрирование элементов внутри карточки */
+}
+
+.review-card:last-child {
+	margin-right: 0;
+}
+
+.review-text {
+	font-size: 20px;
+	line-height: 1.5;
+	margin-bottom: 10px; /* Уменьшим отступ снизу от текста отзыва */
+	font-style: italic;
+	text-align: center; /* **Явно центрируем текст отзыва** */
+}
+
+.reviewer-name {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	text-align: center; /* **Явно центрируем имя автора** */
+	font-family: 'Piazzolla', serif;
+	margin-bottom: 10px; /* Добавим отступ снизу от имени */
+}
+
+/* Стили для звезд в карточке отзыва */
+.review-stars {
+	display: flex;
+	justify-content: center; /* Центрируем звезды */
+	align-items: center;
+}
+
+.star-icon-small {
+	color: #f94a77;
+	font-size: 24px; /* Уменьшенный размер звезд для отзывов */
+	margin: 0;
+	padding: 0 5px;
+	display: block;
+}
+
+/* Стили для кнопок управления каруселью */
+/*  Родительский контейнер .carousel-controls больше не нужен, стили переносим на .reviews-carousel и .carousel-button */
+
+.carousel-button {
+	background: none;
+	border: none;
+	font-size: 30px;
+	color: #ffffff;
+	cursor: pointer;
+	margin: 0; /* Убираем стандартные отступы */
+	transition: color 0.3s ease;
+	position: absolute; /* **Абсолютное позиционирование кнопок** */
+	transform: translateY(-50%); /*  Точное вертикальное центрирование */
+}
+
+.carousel-button:hover {
+	color: #e83e8c;
+}
+
+.carousel-button.prev-button {
+	left: -40px; /*  Позиционируем левую кнопку слева от карусели */
+}
+
+.carousel-button.next-button {
+	right: -40px; /*  Позиционируем правую кнопку справа от карусели */
+}
+
+/* 4 Блок с картинкой */
+
+/* Styles for the "How it Works" section */
+.how-it-works-section {
+	padding: 80px 0; /* Adjust padding as needed */
+	background-color: #ffffff; /* Or your desired background color */
+}
+
+.how-it-works-title {
+	font-size: 60px; /* Adjust size as needed */
+	font-weight: bold;
+	margin-bottom: 15px;
+	color: #333; /* Adjust color as needed */
+}
+
+.how-it-works-subtitle {
+	font-size: 24px; /* Adjust size as needed */
+	color: #555; /* Adjust color as needed */
+	margin-bottom: 60px; /* Space between subtitle and image block */
+}
+
+.how-it-works-image {
+	max-width: 100%; /* Ensure image is responsive within its column */
+	height: auto;
+}
+
+/* Styles for text positioned around the image */
+.text-around {
+	position: absolute;
+	font-size: 24px; /* Adjust text size */
+	font-weight: 600;
+	color: #333; /* Adjust text color */
+	line-height: 1.4; /* Adjust line height */
+}
+
+.text-around-top-right {
+	top: 10%; /* Adjust vertical position */
+	right: -20%; /* Adjust horizontal position - negative value moves it outside the container */
+	text-align: left; /* Align text to the left */
+}
+
+.text-around-left {
+	top: 50%; /* Adjust vertical position */
+	left: -20%; /* Adjust horizontal position */
+	transform: translateY(-50%); /* Vertical centering */
+	text-align: right; /* Align text to the right */
+}
+
+.text-around-bottom-right {
+	bottom: 10%; /* Adjust vertical position */
+	right: -20%; /* Adjust horizontal position */
+	text-align: left; /* Align text to the left */
+}
+
+/* Optional: Media query to adjust text positioning on smaller screens if needed */
+@media (max-width: 767.98px) {
+	.text-around {
+		position: static; /* Remove absolute positioning on small screens */
+		text-align: center; /* Center text below image */
+		margin-bottom: 20px;
+	}
+	.how-it-works-image {
+		margin-bottom: 40px; /* Add space between image and text on small screens */
+	}
+}
+
+/* 5 Блок с выпадающим списком */
+
+/* Styles for the FAQ section */
+.faq-section {
+	padding: 240px 0; /* Adjust padding as needed */
+}
+
+.faq-title {
+	font-size: 48px; /* Adjust size as needed */
+	font-weight: bold;
+	margin-bottom: 40px; /* Space below the title */
+}
+
+/* Customizations for Bootstrap Accordion in the FAQ section */
+.faq-section .accordion-item {
+	background-color: #ffffff; /* White background for accordion items */
+	border: 1px solid #dee2e6; /* Standard Bootstrap border color */
+	margin-bottom: 10px; /* Space between accordion items */
+	border-radius: 5px; /* Optional: rounded corners */
+}
+
+.faq-section .accordion-button {
+	background-color: #ffffff; /* White background for buttons */
+	color: #212529; /* Dark text color for questions */
+	font-size: 20px; /* Adjust font size */
+	font-weight: 600;
+	padding: 15px 20px; /* Adjust padding */
+	border-radius: 5px; /* Optional: rounded corners */
+	transition: background-color 0.2s ease;
+}
+
+.faq-section .accordion-button:not(.collapsed) {
+	color: #000000; /* Text color when button is active/open */
+	background-color: #e9ecef; /* Slightly darker background when open */
+	box-shadow: none; /* Remove default box shadow */
+}
+
+.faq-section .accordion-button:focus {
+	box-shadow: none; /* Remove focus outline */
+	border-color: transparent;
+}
+
+.faq-section .accordion-body {
+	color: #495057; /* Dark gray text color for answers */
+	font-size: 18px; /* Adjust font size */
+	line-height: 1.6;
+	padding: 20px;
+}
+
+/* 6 блок с контактной информацией */
+
+/* Styles for the "Still curious?" section */
+.still-curious-section {
+	padding: 80px 0; /* Регулируйте отступы сверху и снизу по необходимости */
+	background-color: #ffffff; /* Предполагая белый фон, как на изображении */
+}
+
+.still-curious-title {
+	font-size: 60px; /* Регулируйте размер заголовка по необходимости */
+	font-weight: bold;
+	margin-bottom: 40px; /* Отступ снизу от заголовка */
+	color: #333; /* Цвет текста заголовка */
+}
+
+.still-curious-subtitle {
+	font-size: 24px; /* Регулируйте размер подзаголовка по необходимости */
+	color: #444; /* Цвет текста подзаголовка */
+	line-height: 1.5;
+	margin-bottom: 50px; /* Отступ снизу от подзаголовка */
+	max-width: 1200px; /* Ограничьте ширину текста для лучшей читаемости */
+	margin-left: auto; /* Центрирование блока с ограниченной шириной */
+	margin-right: auto; /* Центрирование блока с ограниченной шириной */
+}
+
+/* Стили для кнопки .learn-more-btn уже существуют в вашем CSS */
+/* Если нужно специфичное центрирование для этой конкретной кнопки, можно добавить: */
+.still-curious-section .learn-more-btn {
+	margin-left: auto;
+	margin-right: auto;
+	display: block; /* Сделать кнопку блочным элементом для центрирования с auto margin */
+	width: fit-content; /* Ширина по содержимому, чтобы auto margin работал */
+}
+
+/* Footer */
+
+/* Стили для футера */
+.site-footer {
+	background-color: #000000; /* Темный фон, как на изображении */
+	color: #ffffff; /* Белый текст по умолчанию */
+	padding: 40px 0; /* Отступы сверху и снизу */
+}
+
+.site-footer .container {
+	padding: 0 70px; /* Отступы по бокам, аналогично header */
+}
+
+.site-footer .footer-top {
+	margin-bottom: 20px; /* Отступ между верхней частью футера и разделительной линией */
+}
+
+.site-footer .footer-brand {
+	font-weight: bold;
+	color: #e83e8c !important; /* Цвет логотипа PolicyPro */
+	font-size: 36px;
+	text-decoration: none; /* Убираем подчеркивание */
+}
+
+.site-footer .footer-social-icons a {
+	color: #ffffff; /* Белый цвет для иконок по умолчанию */
+	font-size: 24px; /* Размер иконок */
+	margin-left: 20px; /* Отступ между иконками */
+	transition: color 0.3s ease;
+}
+
+.site-footer .footer-social-icons a:hover {
+	color: #e83e8c; /* Цвет при наведении */
+}
+
+.site-footer .footer-divider {
+	border-top: 1px solid #ffffff; /* Белая разделительная линия */
+	margin: 20px 0; /* Отступы вокруг разделительной линии */
+}
+
+.site-footer .footer-bottom {
+	margin-top: 20px; /* Отступ между разделительной линией и нижней частью футера */
+}
+
+.site-footer .footer-copyright p {
+	margin-bottom: 0; /* Убираем стандартный нижний отступ у параграфа */
+	font-size: 16px; /* Размер текста копирайта */
+	color: #cccccc; /* Немного светлее для контраста */
+}
+
+.site-footer .footer-nav {
+	padding-left: 0; /* Убираем стандартный padding у списка */
+	margin-bottom: 0; /* Убираем стандартный нижний отступ у списка */
+	/* Добавлено: Выравнивание элементов по центру по вертикали в строке flexbox */
+	align-items: center;
+	/* flex-wrap уже установлен в медиа запросе для маленьких экранов */
+}
+
+/* Стили для пунктов меню */
+.site-footer .footer-nav .nav-item {
+	margin-left: 30px; /* Отступ между пунктами меню */
+}
+
+/* Стили для первого пункта меню на экранах md+ */
+@media (min-width: 768px) {
+	.site-footer .footer-nav .nav-item:first-child {
+		margin-left: 0; /* Убираем отступ у первого пункта меню на больших экранах */
+	}
+}
+
+/* Добавлено: Стиль для предотвращения переноса текста у конкретного пункта */
+.site-footer .footer-nav .footer-nav-item-nowrap .nav-link {
+	white-space: nowrap; /* Запретить перенос текста */
+}
+
+.site-footer .footer-nav .nav-link {
+	color: #ffffff !important; /* Белый цвет текста ссылок */
+	text-decoration: none; /* Убираем подчеркивание */
+	font-size: 16px; /* Размер текста ссылок */
+	padding: 0 !important; /* Убираем стандартный padding Bootstrap для nav-link */
+	transition: color 0.3s ease;
+}
+
+.site-footer .footer-nav .nav-link:hover {
+	color: #e83e8c !important; /* Цвет при наведении */
+}
+
+/* Адаптивность для футера на маленьких экранах */
+@media (max-width: 767.98px) {
+	.site-footer .container {
+		padding: 0 15px; /* Уменьшаем отступы по бокам на маленьких экранах */
+	}
+
+	.site-footer .footer-brand {
+		font-size: 28px; /* Уменьшаем размер логотипа */
+		text-align: center; /* Центрируем логотип */
+		display: block; /* Делаем логотип блочным для центрирования */
+		margin-bottom: 20px; /* Добавляем отступ снизу */
+	}
+
+	.site-footer .footer-social-icons {
+		text-align: center !important; /* Центрируем иконки */
+		margin-bottom: 20px; /* Добавляем отступ снизу */
+	}
+
+	.site-footer .footer-social-icons a {
+		margin: 0 10px; /* Уменьшаем отступ между иконками и центрируем их */
+	}
+
+	.site-footer .footer-copyright {
+		text-align: center !important; /* Центрируем копирайт */
+		margin-bottom: 20px; /* Добавляем отступ снизу */
+	}
+
+	.site-footer .footer-nav {
+		justify-content: center !important; /* Центрируем навигационные ссылки */
+		flex-wrap: wrap; /* Переносим ссылки на новую строку, если не помещаются */
+		/* align-items: center; - Применяется ко всем размерам экрана */
+	}
+
+	.site-footer .footer-nav .nav-item {
+		margin: 5px 10px; /* Уменьшаем отступ между ссылками и добавляем вертикальный отступ */
+	}
+
+	/* Добавляем небольшой левый отступ для первого элемента на маленьких экранах для лучшего вида при переносе */
+	.site-footer .footer-nav .nav-item:first-child {
+		margin-left: 10px;
+	}
+}
+
+/* Кнопка "ВХОД" */
+.login-btn {
+	/* Базовые стили кнопки/ссылки */
+	font-family: 'Nunito Sans', sans-serif; /* Используем шрифт Nunito Sans */
+	font-weight: 450; /* Толщина шрифта, соответствующая nunito-sans-B */
+	line-height: 1;
+	display: inline-flex; /* Используем flexbox для выравнивания содержимого */
+	align-items: center; /* Выравнивание по вертикали внутри кнопки */
+	justify-content: center; /* Выравнивание по горизонтали внутри кнопки */
+	height: auto; /* Высота по содержимому */
+	text-decoration: none; /* Убираем подчеркивание у ссылки */
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Плавные переходы */
+	position: relative; /* Необходимо для позиционирования псевдоэлементов */
+	overflow: hidden; /* Скрываем выходящие за границы анимационные элементы */
+
+	/* Стили, адаптированные из .learn-more-btn для шапки */
+	background-color: #f94a77; /* Розовый фон, как у learn-more-btn */
+	color: white; /* Белый текст, как у learn-more-btn */
+	border: 2px solid black; /* Черная рамка, как у learn-more-btn */
+	padding: 10px 20px; /* Уменьшенные внутренние отступы для шапки */
+	font-size: 20px; /* Размер шрифта, подходящий для шапки (как у nav-link) */
+	border-radius: 10px; /* Слегка скругленные углы, как у кнопки "ПОДДЕРЖКА" */
+
+	/* Отступ слева от кнопки "ПОДДЕРЖКА" */
+	margin-left: 10px;
+}
+
+.login-btn:hover {
+	cursor: pointer; /* Курсор при наведении */
+	background-color: #c82a70; /* Более темный розовый при наведении */
+	color: #ffffff; /* Белый текст при наведении */
+	border-color: #000; /* Рамка остается черной при наведении */
+	box-shadow: none; /* Убираем тень */
+}
