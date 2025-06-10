@@ -8,20 +8,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Получение данных из формы и экранирование
     $first_name = mysqli_real_escape_string($db, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($db, $_POST['last_name']);
-    $middle_name = isset($_POST['middle_name']) ? mysqli_real_escape_string($db, $_POST['middle_name']) : NULL;
+    $middle_name = isset($_POST['middle_name']) && !empty(trim($_POST['middle_name'])) ? mysqli_real_escape_string($db, trim($_POST['middle_name'])) : NULL;
     $date_of_birth = mysqli_real_escape_string($db, $_POST['date_of_birth']);
     $email = mysqli_real_escape_string($db, $_POST['email']);
     $phone = mysqli_real_escape_string($db, $_POST['phone']);
-    $address = isset($_POST['address']) ? mysqli_real_escape_string($db, $_POST['address']) : NULL;
+    $address = isset($_POST['address']) && !empty(trim($_POST['address'])) ? mysqli_real_escape_string($db, trim($_POST['address'])) : NULL;
+    $region = isset($_POST['region']) && !empty(trim($_POST['region'])) ? mysqli_real_escape_string($db, trim($_POST['region'])) : NULL; // Новое поле "область"
     $passport_number = mysqli_real_escape_string($db, $_POST['passport_number']);
-    $password = $_POST['password']; // Пароль не экранируем перед хешированием
+    $password = $_POST['password']; 
     $password_confirm = $_POST['password_confirm'];
 
     // Валидация обязательных полей
     if (empty($first_name)) { $errors[] = "Имя обязательно для заполнения."; }
     if (empty($last_name)) { $errors[] = "Фамилия обязательна для заполнения."; }
     if (empty($date_of_birth)) { $errors[] = "Дата рождения обязательна для заполнения."; }
-    // Дополнительная валидация формата даты
     elseif (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $date_of_birth)) { $errors[] = "Неверный формат даты рождения (ГГГГ-ММ-ДД)."; }
 
     if (empty($email)) {
@@ -30,11 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Неверный формат email.";
     }
     if (empty($phone)) { $errors[] = "Номер телефона обязателен для заполнения."; }
-    // Дополнительная валидация формата телефона (простой пример)
     elseif (!preg_match("/^[0-9\-\+\s\(\)]{7,20}$/", $phone)) { $errors[] = "Неверный формат номера телефона."; }
 
-    if (empty($passport_number)) { $errors[] = "Номер паспорта обязателен для заполнения."; }
-    // Можно добавить валидацию формата номера паспорта
+    if (empty($passport_number)) { $errors[] = "Номер и серия паспорта обязательны для заполнения."; }
 
     if (empty($password)) {
         $errors[] = "Пароль обязателен для заполнения.";
@@ -49,19 +47,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         $check_query_email = "SELECT id FROM Users WHERE email='$email' LIMIT 1";
         $result_email = mysqli_query($db, $check_query_email);
-        if (mysqli_num_rows($result_email) > 0) {
+        if ($result_email && mysqli_num_rows($result_email) > 0) {
             $errors[] = "Пользователь с таким email уже существует.";
         }
 
         $check_query_phone = "SELECT id FROM Users WHERE phone='$phone' LIMIT 1";
         $result_phone = mysqli_query($db, $check_query_phone);
-        if (mysqli_num_rows($result_phone) > 0) {
+        if ($result_phone && mysqli_num_rows($result_phone) > 0) {
             $errors[] = "Пользователь с таким номером телефона уже существует.";
         }
 
         $check_query_passport = "SELECT id FROM Users WHERE passport_number='$passport_number' LIMIT 1";
         $result_passport = mysqli_query($db, $check_query_passport);
-        if (mysqli_num_rows($result_passport) > 0) {
+        if ($result_passport && mysqli_num_rows($result_passport) > 0) {
             $errors[] = "Пользователь с таким номером паспорта уже существует.";
         }
     }
@@ -70,17 +68,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
-        // Подготовка SQL запроса с использованием prepared statements для безопасности
-        $stmt = mysqli_prepare($db, "INSERT INTO Users (first_name, last_name, middle_name, date_of_birth, email, phone, address, passport_number, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = mysqli_prepare($db, "INSERT INTO Users (first_name, last_name, middle_name, date_of_birth, email, phone, address, region, passport_number, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
-        mysqli_stmt_bind_param($stmt, "sssssssss", 
+        // Типы: s - string, d - double/decimal, i - integer, b - blob
+        mysqli_stmt_bind_param($stmt, "ssssssssss", 
             $first_name, 
             $last_name, 
             $middle_name, 
             $date_of_birth, 
             $email, 
             $phone, 
-            $address, 
+            $address,
+            $region, // Добавили регион
             $passport_number, 
             $hashed_password
         );
@@ -88,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_stmt_execute($stmt)) {
             $user_id = mysqli_insert_id($db);
             $_SESSION['user_id'] = $user_id;
-            $_SESSION['first_name'] = $first_name; // Сохраняем имя для приветствия
+            $_SESSION['first_name'] = $first_name; 
             $_SESSION['show_auth_success_message'] = "Вы успешно зарегистрировались и вошли в систему!";
             header('Location: index.php');
             exit();
@@ -125,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Мои Полисы</a></li>
+                        <li class="nav-item"><a class="nav-link nunito-sans-B" href="my_policies.php">Мои Полисы</a></li>
                         <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Подать Претензию</a></li>
                         <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Проверка Статуса</a></li>
                         <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Типы Страхования</a></li>
@@ -145,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="полоса" style="margin-bottom: 0;"></div>
 
     <main class="auth-main-content">
-        <div class="auth-container" style="max-width: 600px;"> <h2 class="piazzolla">Создать Аккаунт</h2>
+        <div class="auth-container" style="max-width: 700px;"> <h2 class="piazzolla">Создать Аккаунт</h2>
 
             <?php if (!empty($errors)): ?>
                 <div class="message error-message">
@@ -157,58 +156,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <form method="POST" action="register.php">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="last_name" class="nunito-sans-B">Фамилия:<span class="text-danger">*</span></label>
                             <input type="text" id="last_name" name="last_name" class="form-control" value="<?php echo isset($_POST['last_name']) ? htmlspecialchars($_POST['last_name']) : ''; ?>" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="first_name" class="nunito-sans-B">Имя:<span class="text-danger">*</span></label>
                             <input type="text" id="first_name" name="first_name" class="form-control" value="<?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?>" required>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="middle_name" class="nunito-sans-B">Отчество:</label>
                             <input type="text" id="middle_name" name="middle_name" class="form-control" value="<?php echo isset($_POST['middle_name']) ? htmlspecialchars($_POST['middle_name']) : ''; ?>">
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="date_of_birth" class="nunito-sans-B">Дата рождения:<span class="text-danger">*</span></label>
                             <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="<?php echo isset($_POST['date_of_birth']) ? htmlspecialchars($_POST['date_of_birth']) : ''; ?>" required>
                         </div>
                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone" class="nunito-sans-B">Номер телефона:<span class="text-danger">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (XXX) XXX-XX-XX" value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>" required>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="email" class="nunito-sans-B">Email:<span class="text-danger">*</span></label>
-                    <input type="email" id="email" name="email" class="form-control" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="example@domain.com" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="phone" class="nunito-sans-B">Номер телефона:<span class="text-danger">*</span></label>
-                            <input type="tel" id="phone" name="phone" class="form-control" value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>" required>
+                            <label for="passport_number" class="nunito-sans-B">Номер и серия паспорта:<span class="text-danger">*</span></label>
+                            <input type="text" id="passport_number" name="passport_number" class="form-control" placeholder="XXXX XXXXXX" value="<?php echo isset($_POST['passport_number']) ? htmlspecialchars($_POST['passport_number']) : ''; ?>" required>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="passport_number" class="nunito-sans-B">Номер паспорта:<span class="text-danger">*</span></label>
-                            <input type="text" id="passport_number" name="passport_number" class="form-control" value="<?php echo isset($_POST['passport_number']) ? htmlspecialchars($_POST['passport_number']) : ''; ?>" required>
+                         <div class="form-group">
+                            <label for="region" class="nunito-sans-B">Область:</label>
+                            <input type="text" id="region" name="region" class="form-control" value="<?php echo isset($_POST['region']) ? htmlspecialchars($_POST['region']) : ''; ?>">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="address" class="nunito-sans-B">Адрес:</label>
-                    <textarea id="address" name="address" class="form-control" rows="3"><?php echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; ?></textarea>
+                    <label for="address" class="nunito-sans-B">Адрес (город, улица, дом, квартира):</label>
+                    <textarea id="address" name="address" class="form-control" rows="2"><?php echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; ?></textarea>
                 </div>
 
                 <div class="row">
@@ -274,6 +279,113 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         setupPasswordToggle('togglePassword', 'password');
         setupPasswordToggle('togglePasswordConfirm', 'password_confirm');
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const passportInput = document.getElementById('passport_number');
+
+    if (passportInput) {
+        passportInput.addEventListener('input', function(e) {
+            const input = e.target;
+            let value = input.value;
+            let originalCursorPos = input.selectionStart; // Сохраняем позицию курсора
+
+            // 1. Удаляем все нецифровые символы, чтобы получить только цифры
+            let digits = value.replace(/\D/g, '');
+
+            // 2. Ограничиваем количество цифр до 10 (4 для серии + 6 для номера)
+            if (digits.length > 10) {
+                digits = digits.substring(0, 10);
+            }
+
+            // 3. Форматируем значение
+            let formattedValue = '';
+            if (digits.length > 4) {
+                formattedValue = digits.substring(0, 4) + ' ' + digits.substring(4);
+            } else {
+                formattedValue = digits;
+            }
+
+            // 4. Обновляем значение поля, только если оно изменилось,
+            // чтобы избежать бесконечного цикла и проблем с курсором.
+            if (input.value !== formattedValue) {
+                input.value = formattedValue;
+
+                // 5. Пытаемся восстановить позицию курсора
+                // Это упрощенная логика. Идеальное управление курсором при маскировании сложно.
+                // Если был добавлен пробел (длина увеличилась), и курсор был после 4-го символа,
+                // или если курсор был в конце строки, корректируем его.
+                let newCursorPos = originalCursorPos;
+                
+                // Если пробел был добавлен (formattedValue длиннее value без форматирования, но с теми же цифрами)
+                // и курсор был на месте или после места вставки пробела
+                if (formattedValue.length > value.length && // Длина увеличилась
+                    originalCursorPos > 4 &&                // Курсор был после 4-го символа
+                    value.charAt(4) !== ' ' &&              // В старом значении не было пробела на 5-й позиции
+                    formattedValue.charAt(4) === ' ') {     // В новом значении есть пробел на 5-й позиции
+                     newCursorPos = originalCursorPos + (formattedValue.length - value.length);
+                } else if (value.length === 4 && formattedValue.length === 5 && originalCursorPos === 4 && e.inputType !== 'deleteContentBackward') {
+                    // Частный случай: ввод 4-й цифры, после чего добавляется пробел
+                    // (input.value будет "XXXX", formattedValue будет "XXXX ")
+                    // На самом деле, input.value уже будет содержать 4 цифры,
+                    // а e.target.value до изменения - 3 цифры, если это был ввод 4-й.
+                    // Этот случай покрывается общей логикой, если пользователь вводит 5-ю цифру.
+                    // Если пользователь ввел 4-ю цифру, курсор будет после нее.
+                    // Если пользователь ввел 5-ю цифру (которая стала 1-й после пробела),
+                    // то originalCursorPos был 4 (перед вводом 5-й цифры).
+                    // value (до форматирования) было "XXXXD", formattedValue стало "XXXX D"
+                     if(e.data){ // если был ввод символа
+                        newCursorPos = originalCursorPos + 1 + (formattedValue.length - (digits.length)); // +1 за введенный символ, +1 за пробел (если появился)
+                     } else {
+                        newCursorPos = formattedValue.length;
+                     }
+                }
+
+
+                // Предотвращение выхода курсора за пределы
+                if (newCursorPos > formattedValue.length) {
+                    newCursorPos = formattedValue.length;
+                }
+                
+                // Если значение стало "XXXX " и курсор был на 4-й позиции
+                if (originalCursorPos === 4 && formattedValue === digits.substring(0, 4) + ' ' && e.inputType && e.inputType.startsWith('insert')) {
+                    newCursorPos = 5; // Ставим курсор после пробела
+                }
+
+
+                input.setSelectionRange(newCursorPos, newCursorPos);
+            }
+        });
+
+        // Дополнительно: можно запретить ввод нецифровых символов изначально (кроме Backspace, Delete, стрелок)
+        // Но 'input' событие уже обрабатывает это, удаляя \D.
+        // Этот обработчик может быть полезен для предотвращения ввода лишних пробелов.
+        passportInput.addEventListener('keydown', function(e) {
+            const key = e.key;
+            const value = e.target.value;
+            const selectionStart = e.target.selectionStart;
+
+            // Разрешаем управляющие клавиши
+            if (['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'].includes(key)) {
+                return;
+            }
+
+            // Если это пробел
+            if (key === ' ') {
+                // Разрешаем пробел только если он вводится на 5-й позиции (индекс 4)
+                // и там еще нет пробела
+                if (value.length !== 4 || selectionStart !== 4) {
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            // Если не цифра - запрещаем
+            if (!/^\d$/.test(key)) {
+                e.preventDefault();
+            }
+        });
+    }
+});
     </script>
 </body>
 </html>

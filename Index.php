@@ -60,7 +60,7 @@ if (isset($_SESSION['show_auth_success_message'])) {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link nunito-sans-B" href="#">Мои Полисы</a>
+                            <li class="nav-item"><a class="nav-link nunito-sans-B" href="my_policies.php">Мои Полисы</a></li>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nunito-sans-B" href="#">Подать Претензию</a>

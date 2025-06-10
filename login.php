@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                      <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Мои Полисы</a></li>
+                        <li class="nav-item"><a class="nav-link nunito-sans-B" href="my_policies.php">Мои Полисы</a></li>
                         <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Подать Претензию</a></li>
                         <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Проверка Статуса</a></li>
                         <li class="nav-item"><a class="nav-link nunito-sans-B" href="index.php#">Типы Страхования</a></li>
